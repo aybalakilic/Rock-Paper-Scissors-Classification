@@ -1,114 +1,104 @@
 # Rock-Paper-Scissors Classification with YOLOv11
 
-This project demonstrates how to classify gestures for the game "Rock-Paper-Scissors" using a YOLOv11 model. The model is trained on labeled images of the three gestures and applied to real-time video streams to perform gesture classification.
+This project implements a custom YOLOv11 model to classify hand gestures for Rock-Paper-Scissors. The model is trained on labeled images and deployed for both real-time camera-based predictions and static image classification.
 
 ## Features
-- **Model Training**: Train a YOLOv11 model for Rock-Paper-Scissors classification.
-- **Real-Time Detection**: Use a webcam to classify gestures in real-time.
-- **Visualization**: Display the detected gestures with bounding boxes and class labels.
+- **Custom YOLOv11 Model**: Fine-tuned for Rock, Paper, and Scissors gestures.
+- **Real-Time Detection**: Uses a webcam to classify hand gestures live.
+- **Image Classification**: Processes static images for classification.
+
+## Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/username/rock-paper-scissors-yolov11.git
+   cd rock-paper-scissors-yolov11
+   ```
+
+2. Ensure the YOLOv11 environment is set up correctly and the model file (`model_best.pt`) is placed in the project directory.
+
+## Usage
+
+### Real-Time Detection
+Run the following command to use the webcam for live detection:
+```bash
+python predict_camera.py
+```
+
+### Static Image Classification
+Use this command to classify a specific image:
+```bash
+python predict_images.py --source path/to/your/image.jpg
+```
+
+Replace `path/to/your/image.jpg` with the path of your image file.
+
+### Output Example
+The results will include:
+- **Class Prediction**: Rock, Paper, or Scissors.
+- **Confidence Score**: The confidence of the prediction.
+
+## Training
+For custom training, use:
+```bash
+python train.py --data data.yaml --weights yolov11.pt
+```
+Ensure the `data.yaml` file is configured correctly for your dataset.
+
+## Model Information
+- **Model**: YOLOv11
+- **Classes**: Rock, Paper, Scissors
 
 ---
 
-# Taş-Kağıt-Makas Sınıflandırması (YOLOv11 ile)
+# Taş-Kağıt-Makas Sınıflandırması YOLOv11 ile
 
-Bu proje, "Taş-Kağıt-Makas" oyunundaki el hareketlerini sınıflandırmak için YOLOv11 modeli kullanır. Model, üç hareketin etiketlenmiş görüntüleri üzerinde eğitilir ve gerçek zamanlı video akışlarında sınıflandırma işlemi gerçekleştirir.
+Bu proje, Taş, Kağıt, Makas el hareketlerini sınıflandırmak için özel bir YOLOv11 modeli uygular. Model, etiketlenmiş görüntüler üzerinde eğitilmiştir ve hem kamera hem de statik görüntüler için kullanılmıştır.
 
 ## Özellikler
-- **Model Eğitimi**: YOLOv11 modeli ile Taş-Kağıt-Makas sınıflandırması yapılabilir.
-- **Gerçek Zamanlı Tespit**: Web kamerası kullanılarak hareketlerin gerçek zamanlı olarak sınıflandırılması.
-- **Görselleştirme**: Sınıflandırılan hareketlerin sınıf etiketleri ve sınır kutuları ile görüntülenmesi.
+- **Özel YOLOv11 Modeli**: Taş, Kağıt, Makas hareketleri için özelleştirilmiştir.
+- **Gerçek Zamanlı Tespit**: Kamera kullanarak el hareketlerini anında sınıflandırır.
+- **Görüntü Sınıflandırma**: Statik görüntüler üzerinde sınıflandırma yapar.
 
----
+## Kurulum
 
-## Installation / Kurulum
-
-1. Clone this repository:
+1. Depoyu klonlayın:
    ```bash
-   git clone https://github.com/yourusername/rock-paper-scissors-classification.git
-   cd rock-paper-scissors-classification
+   git clone https://github.com/username/rock-paper-scissors-yolov11.git
+   cd rock-paper-scissors-yolov11
    ```
 
-2. Install the required dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
+2. YOLOv11 kurulumunun doğru olduğundan ve model dosyasının (`model_best.pt`) proje dizininde bulunduğundan emin olun.
 
----
+## Kullanım
 
-1. Bu projeyi klonlayın:
-   ```bash
-   git clone https://github.com/yourusername/rock-paper-scissors-classification.git
-   cd rock-paper-scissors-classification
-   ```
+### Gerçek Zamanlı Tespit
+Canlı kamera tespiti için:
+```bash
+python predict_camera.py
+```
 
-2. Gerekli bağımlılıkları yükleyin:
-   ```bash
-   pip install -r requirements.txt
-   ```
+### Statik Görüntü Sınıflandırma
+Belirli bir görüntü için:
+```bash
+python predict_images.py --source path/to/your/image.jpg
+```
 
----
+`path/to/your/image.jpg` kısmını kendi görüntü yolunuzla değiştirin.
 
-## Usage / Kullanım
+### Çıktı Örneği
+Sonuçlar şunları içerir:
+- **Sınıf Tahmini**: Taş, Kağıt veya Makas.
+- **Güven Skoru**: Tahminin güvenilirliği.
 
-### Model Training / Model Eğitimi
-1. Place your dataset in the `data` folder and ensure `data.yaml` is configured correctly.
-2. Train the model:
-   ```bash
-   from ultralytics import YOLO
-   model = YOLO("yolov11s.pt")
-   model.train(data="data.yaml", epochs=10, imgsz=640)
-   ```
+## Eğitim
+Kendi eğitiminizi yapmak için:
+```bash
+python train.py --data data.yaml --weights yolov11.pt
+```
+`data.yaml` dosyasının veri setinize uygun şekilde ayarlandığından emin olun.
 
-### Real-Time Classification / Gerçek Zamanlı Sınıflandırma
-1. Run the following script for real-time classification:
-   ```python
-   from ultralytics import YOLO
-   import cv2
+## Model Bilgileri
+- **Model**: YOLOv11
+- **Sınıflar**: Taş, Kağıt, Makas
 
-   model = YOLO("best.pt")
-   camera = cv2.VideoCapture(0)
-
-   while True:
-       ret, frame = camera.read()
-       results = model.predict(frame)
-       
-       for result in results:
-           boxes = result.boxes
-           for box in boxes:
-               x1, y1, x2, y2 = map(int, box.xyxy[0])
-               cls = int(box.cls[0])
-               label = f"{model.names[cls]}"
-               cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
-               cv2.putText(frame, label, (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
-
-       cv2.imshow("Rock-Paper-Scissors", frame)
-       if cv2.waitKey(1) & 0xFF == ord('q'):
-           break
-
-   camera.release()
-   cv2.destroyAllWindows()
-   ```
-
----
-
-### **Sonuçlar** / **Results**
-
-- **Trained Model**: The model achieves high accuracy in recognizing gestures from both images and real-time streams.
-- **Visualization**: Bounding boxes and labels are overlaid on the video feed to indicate detected gestures.
-
-- **Eğitilmiş Model**: Model, hem görüntülerde hem de gerçek zamanlı akışlarda hareketleri yüksek doğrulukla tanır.
-- **Görselleştirme**: Tespit edilen hareketleri göstermek için sınır kutuları ve etiketler video akışına eklenir.
-
----
-
-## Contributing / Katkıda Bulunma
-Contributions are welcome! Please open an issue or submit a pull request if you'd like to improve this project.
-
-Katkılarınızı memnuniyetle karşılıyoruz! Lütfen projeyi geliştirmek için bir sorun bildirin veya bir pull request gönderin.
-
----
-
-## License / Lisans
-This project is licensed under the MIT License. See the LICENSE file for details.
-
-Bu proje MIT Lisansı altında lisanslanmıştır. Detaylar için LICENSE dosyasına bakınız.
